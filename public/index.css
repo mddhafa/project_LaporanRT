@@ -1,0 +1,283 @@
+/* Reset and Body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('/image/login.png') no-repeat center center/cover;
+    background-attachment: fixed;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    height: 100%;
+    width: 80px;
+    border-radius: 25px;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Sidebar expands on hover */
+.sidebar:hover {
+    width: 200px;
+}
+
+/* Logo Styles */
+.sidebar .logo {
+    width: 100%;
+    height: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #218838;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: background 0.2s, transform 0.3s;
+}
+
+/* Add margin-right to the icon to create space between the icon and text */
+.sidebar a svg {
+    margin-right: 10px;
+    /* Adjust the spacing here */
+    fill: white;
+    /* Ensure the icon color matches the text */
+}
+
+/* Hide text initially */
+.sidebar a span {
+    display: none;
+}
+
+/* Show text when sidebar expands */
+.sidebar:hover a span {
+    display: inline;
+}
+
+.sidebar a:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+    /* Add slight scaling effect */
+}
+
+.sidebar a.active {
+    background-color: #25773b;
+    /* Darker green for active state */
+    font-weight: bold;
+    /* Bold the active link text */
+}
+
+.sidebar .mt-auto {
+    margin-top: auto;
+    padding-left: 70px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 110px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover~.main-content {
+    margin-left: 250px;
+}
+
+/* Content Box */
+.content-box {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1500px;
+    margin: auto;
+    text-align: center;
+}
+
+.content-box h1 {
+    font-size: 24px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.content-box p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Logo Styles */
+.sidebar .logo {
+    width: 100%;
+    height: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #218838;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Circular Logo */
+.sidebar .logo .logo-img {
+    width: 60px;
+    /* Adjust size of the logo */
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+/* Container for Reports and Info Sidebar */
+.reports-and-info {
+display: flex;
+gap: 30px;
+}
+
+/* Styling for the report section */
+.reports-box {
+flex: 3;
+background: rgba(255, 255, 255, 0.8);
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reports-box h2 {
+font-size: 24px;
+color: #28a745;
+margin-bottom: 15px;
+}
+
+.reports-box p {
+font-size: 16px;
+margin-bottom: 20px;
+}
+
+.unfinished-reports {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 20px;
+}
+
+.report-card {
+background: #f9f9f9;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease;
+}
+
+.report-card:hover {
+transform: translateY(-5px);
+}
+
+.report-card h3 {
+font-size: 20px;
+color: #28a745;
+margin-bottom: 10px;
+}
+
+.report-card p {
+font-size: 16px;
+color: #555;
+margin-bottom: 15px;
+}
+
+.btn-process {
+padding: 10px 20px;
+background-color: #28a745;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.btn-process:hover {
+background-color: #218838;
+}
+
+.btn-selesai {
+padding: 10px 20px;
+background-color: #28a745;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.btn-selesai:hover {
+background-color: #218838;
+}
+
+/* Sidebar for Time and Weather */
+.info-sidebar {
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.time-box, .weather-box {
+background: rgba(255, 255, 255, 0.8);
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+text-align: center;
+transition: transform 0.3s ease;
+}
+
+.time-box:hover, .weather-box:hover {
+transform: translateY(-5px);
+}
+
+.time-box h3, .weather-box h3 {
+font-size: 20px;
+color: #28a745;
+margin-bottom: 10px;
+}
+
+.time-box p, .weather-box p {
+font-size: 18px;
+color: #333;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+.reports-and-info {
+flex-direction: column;
+gap: 20px;
+}
+
+.info-sidebar {
+flex: 1;
+}
+}

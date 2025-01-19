@@ -1,0 +1,67 @@
+/* Styling untuk elemen <nav> */
+nav {
+    background-color: rgb(55, 57, 57);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h4 {
+    margin: 0;
+    color: white;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style: none;
+    margin-left: 20px;
+}
+
+nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 8px;
+}
+
+nav li a:hover {
+    color: #787777;
+    text-decoration: none;
+}
+
+/* Styling untuk elemen <main> */
+main {
+    margin-top: 20px;
+}
+
+/* Styling untuk elemen .card */
+.card {
+    margin-top: 20px;
+}
+
+/* Styling untuk elemen .alert */
+.alert {
+    margin-top: 20px;
+}
+
+.custom-navbar {
+    background-color: #343a40; /* Warna gelap */
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link {
+    color: #ffffff; /* Warna teks putih */
+}
+
+.custom-navbar .nav-link:hover {
+    color: #f8f9fa; /* Warna teks putih saat hover */
+}

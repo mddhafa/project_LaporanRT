@@ -1,0 +1,185 @@
+/* Your original styles remain the same */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('/image/login.png') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  height: 100%;
+  width: 80px;
+  border-radius: 25px;
+  background-color: #28a745;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Sidebar expands on hover */
+.sidebar:hover {
+  width: 200px;
+}
+
+/* Logo Styles */
+.sidebar .logo {
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  /* Ensure logo is centered vertically */
+  justify-content: center;
+  /* Ensure logo is centered horizontally */
+  background-color: #218838;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Logo Image */
+.sidebar .logo img {
+  width: 50px;
+  /* Set a fixed width for the logo */
+  height: auto;
+  /* Maintain aspect ratio */
+  border-radius: 50%;
+  /* Optional: make the logo circular */
+  object-fit: cover;
+  /* Ensure the image fills the dimensions without distortion */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add a subtle shadow for a better appearance */
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* Sidebar Links */
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: background 0.2s, transform 0.3s;
+}
+
+/* Add margin-right to the icon to create space between the icon and text */
+.sidebar a svg {
+  margin-right: 10px;
+  /* Adjust the spacing here */
+  fill: white;
+  /* Ensure the icon color matches the text */
+}
+
+/* Hide text initially */
+.sidebar a span {
+  display: none;
+}
+
+/* Show text when sidebar expands */
+.sidebar:hover a span {
+  display: inline;
+}
+
+.sidebar a.active {
+  background-color: #25773b;
+  /* Darker green for active state */
+  font-weight: bold;
+  /* Bold the active link text */
+}
+
+.sidebar .mt-auto {
+  margin-top: auto;
+  padding-left: 70px;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 100px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover~.main-content {
+  margin-left: 250px;
+}
+
+/* Content Box */
+.content-box {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1500px;
+  margin: auto;
+  text-align: center;
+}
+
+.content-box h1 {
+  font-size: 24px;
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.content-box p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Search Bar */
+.search-container {
+  margin-top: 20px;
+}
+
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #218838;
+}
+
+/* Results Section */
+.results-container {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.result-card {
+  background-color: #e6f7e6;
+  border: 1px solid #d4edda;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}

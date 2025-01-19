@@ -1,0 +1,260 @@
+ /* Your original styles remain the same */
+ body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('/image/login.png') no-repeat center center/cover;
+    background-attachment: fixed;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    height: 100%;
+    width: 80px;
+    border-radius: 25px;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Sidebar expands on hover */
+.sidebar:hover {
+    width: 200px;
+}
+
+/* Logo Styles */
+.sidebar .logo {
+    width: 100%;
+    height: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    /* Ensure logo is centered vertically */
+    justify-content: center;
+    /* Ensure logo is centered horizontally */
+    background-color: #218838;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Logo Image */
+.sidebar .logo img {
+    width: 50px;
+    /* Set a fixed width for the logo */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 50%;
+    /* Optional: make the logo circular */
+    object-fit: cover;
+    /* Ensure the image fills the dimensions without distortion */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow for a better appearance */
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: background 0.2s, transform 0.3s;
+}
+
+/* Add margin-right to the icon to create space between the icon and text */
+.sidebar a svg {
+    margin-right: 10px;
+    /* Adjust the spacing here */
+    fill: white;
+    /* Ensure the icon color matches the text */
+}
+
+/* Hide text initially */
+.sidebar a span {
+    display: none;
+}
+
+/* Show text when sidebar expands */
+.sidebar:hover a span {
+    display: inline;
+}
+
+.sidebar a.active {
+    background-color: #25773b;
+    /* Darker green for active state */
+    font-weight: bold;
+    /* Bold the active link text */
+}
+
+.sidebar .mt-auto {
+    margin-top: auto;
+    padding-left: 70px;
+}
+
+/* Content Area Styles */
+/* Main Content */
+.main-content {
+    margin-left: 105px;
+    /* Ketika sidebar terkecil */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Saat sidebar hover (sidebar diperluas), margin-left dari main-content berubah */
+.sidebar:hover~.main-content {
+    margin-left: 220px;
+    /* Ketika sidebar diperluas */
+}
+
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.8);
+    /* Make background semi-transparent */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    min-height: 725px;
+    transition: transform 0.3s ease;
+    /* Add transition for smooth sliding effect */
+}
+
+
+h1 {
+    font-size: 24px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #218838;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    resize: none;
+    height: 100px;
+}
+input::placeholder,
+textarea::placeholder {
+    color: rgb(189, 187, 187);
+    opacity: 1; /* Pastikan placeholder terlihat jelas */
+}
+
+.btn {
+    background-color: white;
+    color: #4CAF50;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.btn:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+.output {
+    font-size: 16px;
+    color: #333;
+}
+
+.output p {
+    margin: 10px 0;
+}
+
+.card {
+background: linear-gradient(145deg, #e6e6e6, #ffffff);
+border: 1px solid #ddd;
+border-radius: 12px;
+padding: 20px;
+margin-bottom: 15px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+transform: scale(1.03);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.card-content {
+font-family: 'Arial', sans-serif;
+font-size: 14px;
+color: #444;
+}
+
+.card-content h3 {
+margin: 0 0 10px;
+font-size: 18px;
+color: #218838;
+}
+
+.card-content p {
+margin: 5px 0;
+line-height: 1.5;
+}
+
+
+/* Pesan Sukses */
+.success-message {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Pesan Gagal */
+.error-message {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}

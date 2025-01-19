@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Login dan Register</title>
+
+    <!-- Link Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Link Icon -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/registrasi.css">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <!-- Form Login -->
+            <div class="form sign_in">
+                <h3>Masuk</h3>
+                <form action="/authadmin-routes/login-admin" method="POST" autocomplete="off" id="form_login">
+                    <div class="type">
+                        <input type="email" name="email" placeholder="Email" id="email_login" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <div class="type">
+                        <input type="password" name="password" placeholder="Kata Sandi" id="password_login" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <button class="btn bkg">Masuk</button>
+                </form>
+            </div>
+
+            <!-- Form Register -->
+            <div class="form sign_up">
+                <h3>Daftar</h3>
+                <form action="/authadmin-routes/register-admin" method="POST" autocomplete="off" id="form_register">
+                    <div class="type">
+                        <input type="text" name="name" placeholder="Nama" id="name_register" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <div class="type">
+                        <input type="email" name="email" placeholder="Email" id="email_register" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <div class="type">
+                        <input type="password" name="password" placeholder="Kata Sandi" id="password_register" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <div class="type">
+                        <input type="password" name="passwordConfirm" placeholder="Konfirmasi Kata Sandi" id="confirm_password_register" required>
+                        <small class="error-message"></small>
+                    </div>
+                    <button class="btn bkg">Daftar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay">
+            <div class="page page_signIn">
+                <h3>Selamat Datang!</h3>
+                <p>Login untuk masuk ke halaman pengaduan</p>
+                <button class="btn btnSign-in">Daftar <i class="bi bi-arrow-right"></i></button>
+            </div>
+            <div class="page page_signUp">
+                <h3>Halo!</h3>
+                <p>Daftarkan akunmu sekarang!</p>
+                <button class="btn btnSign-up"><i class="bi bi-arrow-left"></i> Kembali</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Seleksi elemen
+        const container = document.querySelector('.container');
+        const btnSignIn = document.querySelector('.btnSign-in');
+        const btnSignUp = document.querySelector('.btnSign-up');
+        const formLogin = document.getElementById('form_login');
+        const formRegister = document.getElementById('form_register');
+        const btnLogin = formLogin.querySelector('.btn');
+        const btnRegister = formRegister.querySelector('.btn');
+
+        // Navigasi antar form (Login/Daftar)
+        btnSignIn.addEventListener('click', () => {
+            container.classList.add('active');
+        });
+
+        btnSignUp.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
+
+        // Fungsi Validasi Input
+        function validateForm(form, button) {
+            const inputs = form.querySelectorAll('input');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const value = input.value.trim();
+                const type = input.getAttribute('type');
+                const id = input.getAttribute('id');
+                const errorMessageElement = input.nextElementSibling; // Elemen <small> untuk pesan error
+
+                // Reset error sebelumnya
+                input.style.border = "1px solid transparent";
+                errorMessageElement.textContent = "";
+
+                if (value === '') {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                    errorMessageElement.textContent = "Field ini wajib diisi.";
+                } else if (type === 'email' && !/\S+@\S+\.\S+/.test(value)) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                    errorMessageElement.textContent = "Masukkan email yang valid.";
+                } else if (id === 'password_register' && value.length < 6) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                    errorMessageElement.textContent = "Kata sandi harus memiliki setidaknya 6 karakter.";
+                } else if (id === 'confirm_password_register' && value !== form.querySelector('#password_register').value) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                    errorMessageElement.textContent = "Kata sandi tidak cocok.";
+                } else if (id === 'name_register' && !/^[a-zA-Z\s]+$/.test(value)) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                    errorMessageElement.textContent = "Nama hanya boleh mengandung huruf dan spasi.";
+                }
+            });
+
+            // Efek shake jika ada kesalahan
+            if (!isValid) {
+                button.classList.add('shake');
+                setTimeout(() => {
+                    button.classList.remove('shake');
+                }, 500); // Hapus efek shake setelah 0.5 detik
+            }
+
+            return isValid;
+        }
+
+        // Validasi saat submit form login
+        btnLogin.addEventListener('click', (event) => {
+            event.preventDefault(); // Cegah pengiriman form
+            if (validateForm(formLogin, btnLogin)) {
+                formLogin.submit(); // Kirim form jika valid
+            }
+        });
+
+        // Validasi saat submit form register
+        btnRegister.addEventListener('click', (event) => {
+            event.preventDefault(); // Cegah pengiriman form
+            if (validateForm(formRegister, btnRegister)) {
+                // Tampilkan alert setelah pendaftaran berhasil
+                alert("Pendaftaran berhasil! Silakan masuk.");
+
+                // Reset form dan kembali ke halaman login
+                formRegister.submit();
+                container.classList.remove('active'); // Kembali ke form login
+            }
+        });
+        
+
+    </script>
+
+</body>
+
+</html>
