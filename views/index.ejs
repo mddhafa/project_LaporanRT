@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RT Kampung Durian Roboh</title>
+    <title>RT Kampung Durian Roboh - User</title>
     <link rel="stylesheet" href="/index.css">
 </head>
 
@@ -77,14 +77,22 @@
             <h2>Laporan Belum Selesai</h2>
             <p>Berikut adalah laporan yang masih dalam proses:</p>
             <div class="unfinished-reports">
-                <div class="report-card">
-                    <h3>Laporan 1</h3>
-                    <p>Keluhan warga mengenai masalah kebersihan di jalur 3</p>
-                    <button class="btn btn-process">Selesai</button>
-                    <button class="btn btn-process">Update</button>
-                </div>
+                <% laporan.forEach(function(report) { %>
+                    <div class="report-card">
+                        <h3><%= report.jns_pengaduan %></h3>
+                        <p><%= report.nama %></p>
+                        <p><%= report.desk_pengaduan %></p>
+                        <p><%= report.alamat %></p>
+        
+                        <!-- Form untuk mengupdate status -->
+                        <form action="/update-laporan-status/<%= report.NIK %>" method="POST">
+                            <button type="submit" class="btn btn-process">Selesai</button>
+                        </form>
+                    </div>
+                <% }); %>
             </div>
         </div>
+             
 
         <!-- Sidebar for Time and Weather -->
         <div class="info-sidebar">
@@ -103,6 +111,39 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <script>
+        
+        async function markAsDone(nik) {
+    // Ambil elemen laporan berdasarkan NIK
+    const reportElement = document.getElementById(`report-${nik}`);
+
+    if (reportElement) {
+        try {
+            // Kirim permintaan ke server untuk memperbarui status
+            const response = await fetch(`/update-status/${nik}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Sembunyikan elemen dari tampilan
+                reportElement.style.display = 'none';
+
+                // Tampilkan pesan sukses
+                alert('Laporan telah diselesaikan.');
+            } else {
+                alert('Gagal memperbarui status laporan. Silakan coba lagi.');
+            }
+        } catch (error) {
+            console.error('Error updating report status:', error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+        }
+    }
+}
+
         const apiKey = '96fca97dccbada66d3e7d6930d8aa4de';
         const city = 'Yogyakarta'; 
 

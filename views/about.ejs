@@ -68,64 +68,36 @@
 
             <!-- Search Bar -->
             <div class="search-container">
-                <form id="searchForm" method="GET" name="nam" action="/about">
+                <form id="searchForm" method="GET" action="/about">
                     <input 
                         type="text" 
                         id="searchInput" 
                         name="nama" 
                         placeholder="Masukkan NIK atau Nama Pengadu" 
-                        oninput="search()" 
                         required>
-                    <button type="submit" onclick="search(); return false;">Cari Keluhan</button>
+                    <button type="submit">Cari Keluhan</button>
                 </form>
             </div>
 
             <!-- Search Results -->
-            <div class="results-container" id="resultsContainer"></div>
-
+            <div class="results-container">
+                <% if (pengaduan.length > 0) { %>
+                    <ul>
+                        <% pengaduan.forEach(function(item) { %>
+                            <li>
+                                <strong>Nama: </strong> <%= item.nama %><br>
+                                <strong>NIK: </strong> <%= item.NIK %><br>
+                                <strong>Jenis Pengaduan: </strong> <%= item.jns_pengaduan %><br>
+                                <strong>Deskripsi Pengaduan: </strong> <%= item.desk_pengaduan %><br>
+                            </li><br>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <p>No results found.</p>
+                <% } %>
+            </div>
         </div>
-    </div>
-
-    <script>
-        // Data lokal untuk pencarian
-        const localData = [
-            { NIK: "6209065490912341", Nama: "Andi ", Alamat: "Kendari", No_Hp: "08123456787" ,Jenis_Pengaduan: "Fasilitas Umum", Deskripsi: "Lampu jalan mati" },
-            { NIK: "1234567890123542", Nama: "Seis", Alamat: "Kendari", No_Hp: "081287651243" ,Jenis_Pengaduan: "Kebersihan", Deskripsi: "Kotor sekali" },
-            { NIK: "2003456789123467", Nama: "sophia",Alamat:"jlan-jlan", No_Hp:"089519589535",Jenis_Pengaduan:"Fasilitas Umum" ,Deskripsi:"Jalan berlubang" },
-            { NIK: "7856435678937263", Nama: "Dilan",Alamat:"jlan-jlan", No_Hp:"089519589534",Jenis_Pengaduan:" Kebersihan" ,Deskripsi:"banyak sampah" },
-        ];
-    
-        async function search() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.innerHTML = ''; // Bersihkan hasil sebelumnya
-    
-            if (query.trim() === '') {
-                return; // Jangan lakukan apa-apa jika input kosong
-            }
-    
-            // Filter data lokal berdasarkan query
-            const results = localData.filter(item => 
-                item.nik.includes(query) || item.nama.toLowerCase().includes(query)
-            );
-    
-            // Render hasil ke DOM
-            if (results.length === 0) {
-                resultsContainer.innerHTML = '<p>No results found</p>';
-            } else {
-                results.forEach(result => {
-                    const resultCard = document.createElement('div');
-                    resultCard.className = 'result-card';
-                    resultCard.innerHTML = `
-                        <p><strong>NIK:</strong> ${result.nik}</p>
-                        <p><strong>Nama:</strong> ${result.nama}</p>
-                        <p><strong>Keluhan:</strong> ${result.keluhan}</p>
-                    `;
-                    resultsContainer.appendChild(resultCard);
-                });
-            }
-        }
-    </script>        
+    </div>     
 </body>
 
 </html>

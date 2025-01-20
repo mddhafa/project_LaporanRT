@@ -101,131 +101,129 @@
                 </form>
             </div>
 
-            <!-- Right Card: Output -->
             <div class="content-box">
                 <h1>Hasil Pengaduan</h1>
                 <div class="output" id="outputContainer">
-                    <p>Hasil inputan akan muncul di sini setelah Anda mengisi form pengaduan.</p>
+                    <!-- Data akan ditampilkan di sini -->
                 </div>
             </div>
         </div>
     </div>
-
+        
     <script>
-        const form = document.getElementById("pengaduanForm");
-        const outputContainer = document.getElementById("outputContainer");
-        let editCard = null;
+    const outputContainer = document.getElementById("outputContainer");
+    let pengaduanData = []; // Menyimpan data pengaduan
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault(); // Mencegah reload halaman
-
-            // Ambil data dari formulir
-            const formData = {
-                NIK: document.getElementById("nik").value,
-                nama: document.getElementById("nama").value,
-                alamat: document.getElementById("alamat").value,
-                no_hp: document.getElementById("no_hp").value,
-                jns_pengaduan: document.getElementById("jenis").value,
-                desk_pengaduan: document.getElementById("deskripsi").value,
-            };
-
-            try {
-                if (editCard) {
-                    // Update card jika sedang dalam mode edit
-                    const cardContent = editCard.querySelector(".card-content");
-                    cardContent.querySelector("h3").textContent = formData.nama;
-                    cardContent.querySelector("p:nth-child(2)").innerHTML = `<strong>NIK:</strong> ${formData.NIK}`;
-                    cardContent.querySelector("p:nth-child(3)").innerHTML = `<strong>Alamat:</strong> ${formData.alamat}`;
-                    cardContent.querySelector("p:nth-child(4)").innerHTML = `<strong>No HP:</strong> ${formData.no_hp}`;
-                    cardContent.querySelector("p:nth-child(5)").innerHTML = `<strong>Jenis Pengaduan:</strong> ${formData.jns_pengaduan}`;
-                    cardContent.querySelector("p:nth-child(6)").innerHTML = `<strong>Deskripsi:</strong> ${formData.desk_pengaduan}`;
-
-                    // Hapus mode edit
-                    editCard = null;
-                } else {
-                    // Kirim data ke server dengan POST jika mode tambah
-                    const response = await fetch('/form-pengaduan', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData),
-                    });
-
-                    if (response.ok) {
-                        // Jika berhasil, tambahkan data langsung ke UI
-                        addToRightCard(formData);
-                    } else {
-                        console.error("Error submitting data:", await response.text());
-                    }
-                }
-
-                form.reset(); // Reset form setelah submit
-            } catch (error) {
-                console.error("Error:", error);
+    // Ambil data pengaduan dari server ketika halaman dimuat
+    window.onload = async function () {
+        try {
+            const response = await fetch('/get-pengaduan');
+            if (response.ok) {
+                pengaduanData = await response.json();
+                pengaduanData.forEach(data => {
+                    addToRightCard(data);
+                });
+            } else {
+                console.error("Error fetching data:", await response.text());
             }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
+    // Fungsi untuk menambahkan data ke Right Card
+    function addToRightCard(data) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+            <div class="card-content">
+                <h3>${data.nama}</h3>
+                <p><strong>NIK:</strong> ${data.NIK}</p>
+                <p><strong>Alamat:</strong> ${data.alamat}</p>
+                <p><strong>No HP:</strong> ${data.no_hp}</p>
+                <p><strong>Jenis Pengaduan:</strong> ${data.jns_pengaduan}</p>
+                <p><strong>Deskripsi:</strong> ${data.desk_pengaduan}</p>
+                <p><strong>Status:</strong> ${data.status_pengaduan}</p>
+                <button class="btn-edit">Edit</button>
+                <button class="btn-delete">Hapus</button>
+            </div>
+        `;
+        outputContainer.appendChild(card);
+
+        // Event listener untuk tombol edit dan delete
+        const editButton = card.querySelector(".btn-edit");
+        editButton.addEventListener("click", () => {
+            editCardData(card, data);
         });
 
-        // Fungsi untuk menambahkan data ke Right Card
-        function addToRightCard(data) {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-                <div class="card-content">
-                    <h3>${data.nama}</h3>
-                    <p><strong>NIK:</strong> ${data.NIK}</p>
-                    <p><strong>Alamat:</strong> ${data.alamat}</p>
-                    <p><strong>No HP:</strong> ${data.no_hp}</p>
-                    <p><strong>Jenis Pengaduan:</strong> ${data.jns_pengaduan}</p>
-                    <p><strong>Deskripsi:</strong> ${data.desk_pengaduan}</p>
-                    <p><strong>Status:</strong> <span class="status">Belum Selesai</span></p>
-                    <button class="btn-edit">Edit</button>
-                    <button class="btn-delete">Hapus</button>
-                </div>
-                `;
-            outputContainer.appendChild(card); // Tambahkan kartu ke container
+        const deleteButton = card.querySelector(".btn-delete");
+        deleteButton.addEventListener("click", () => {
+            deleteCard(card, data);
+        });
+    }
 
-            //Tambahkan event listener untuk tombol edit
-            const editButton = card.querySelector(".btn-edit");
-            editButton.addEventListener("click", () => {
-                editCardData(card);
-            });
-
-            // Tambahkan event listener untuk tombol Hapus
-            const deleteButton = card.querySelector(".btn-delete");
-            deleteButton.addEventListener("click", () => {
-                deleteCard(card);
-            });
+    // Fungsi untuk menghapus card
+    function deleteCard(card, data) {
+        if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+            card.remove(); // Hapus elemen card dari DOM
+            pengaduanData = pengaduanData.filter(item => item.NIK !== data.NIK); // Hapus data dari array
         }
+    }
 
-        // Fungsi untuk menghapus card
-        function deleteCard(card) {
-            if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-                card.remove(); // Hapus elemen card dari DOM
+    // Fungsi untuk mengedit card
+    function editCardData(card, originalData) {
+        // Ambil data dari card yang akan diedit
+        const nama = originalData.nama;
+        const NIK = originalData.NIK;
+        const alamat = originalData.alamat;
+        const no_hp = originalData.no_hp;
+        const jns_pengaduan = originalData.jns_pengaduan;
+        const desk_pengaduan = originalData.desk_pengaduan;
+
+        // Isi data ke form
+        document.getElementById("nik").value = NIK;
+        document.getElementById("nama").value = nama;
+        document.getElementById("alamat").value = alamat;
+        document.getElementById("no_hp").value = no_hp;
+        document.getElementById("jenis").value = jns_pengaduan;
+        document.getElementById("deskripsi").value = desk_pengaduan;
+
+        // Tangani update data saat form disubmit
+        const form = document.getElementById("pengaduanForm");
+        form.onsubmit = function (event) {
+            event.preventDefault(); // Cegah submit form default
+
+            const updatedNIK = document.getElementById("nik").value;
+
+            // Cek duplikasi NIK
+            if (updatedNIK !== originalData.NIK && pengaduanData.some(item => item.NIK === updatedNIK)) {
+                alert("NIK sudah terdaftar, silakan gunakan NIK lain.");
+                return;
             }
-        }
 
-        // Fungsi untuk mengedit card
-        function editCardData(card) {
-            // Ambil data dari card yang akan diedit
-            const cardContent = card.querySelector(".card-content");
-            const nama = cardContent.querySelector("h3").textContent;
-            const NIK = cardContent.querySelector("p:nth-child(2)").textContent.split(": ")[1];
-            const alamat = cardContent.querySelector("p:nth-child(3)").textContent.split(": ")[1];
-            const no_hp = cardContent.querySelector("p:nth-child(4)").textContent.split(": ")[1];
-            const jns_pengaduan = cardContent.querySelector("p:nth-child(5)").textContent.split(": ")[1];
-            const desk_pengaduan = cardContent.querySelector("p:nth-child(6)").textContent.split(": ")[1];
+            // Update data
+            originalData.nama = document.getElementById("nama").value;
+            originalData.NIK = updatedNIK;
+            originalData.alamat = document.getElementById("alamat").value;
+            originalData.no_hp = document.getElementById("no_hp").value;
+            originalData.jns_pengaduan = document.getElementById("jenis").value;
+            originalData.desk_pengaduan = document.getElementById("deskripsi").value;
 
-            // Isi data ke form
-            document.getElementById("nik").value = NIK;
-            document.getElementById("nama").value = nama;
-            document.getElementById("alamat").value = alamat;
-            document.getElementById("no_hp").value = no_hp;
-            document.getElementById("jenis").value = jns_pengaduan;
-            document.getElementById("deskripsi").value = desk_pengaduan;
+            // Perbarui tampilan card
+            card.querySelector("h3").textContent = originalData.nama;
+            card.querySelector("p:nth-child(2)").innerHTML = `<strong>NIK:</strong> ${originalData.NIK}`;
+            card.querySelector("p:nth-child(3)").innerHTML = `<strong>Alamat:</strong> ${originalData.alamat}`;
+            card.querySelector("p:nth-child(4)").innerHTML = `<strong>No HP:</strong> ${originalData.no_hp}`;
+            card.querySelector("p:nth-child(5)").innerHTML = `<strong>Jenis Pengaduan:</strong> ${originalData.jns_pengaduan}`;
+            card.querySelector("p:nth-child(6)").innerHTML = `<strong>Deskripsi:</strong> ${originalData.desk_pengaduan}`;
 
-            // Simpan elemen card yang akan diedit
-            editCard = card;
-        }
-    </script>
+            // Reset form
+            form.reset();
+            form.onsubmit = null; // Hapus handler custom setelah update
+        };
+    }
+</script>
+
 </body>
 
 </html>

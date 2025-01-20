@@ -83,3 +83,13 @@ exports.loginAdmin = async (req, res) => {
         return res.status(500).render("login-admin", { message: "Terjadi kesalahan server." });
     }
 };
+
+exports.logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error saat logout:", err);
+            return res.redirect("/");
+        }
+        res.redirect("/login");
+    });
+};

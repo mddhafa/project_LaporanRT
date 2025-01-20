@@ -33,19 +33,6 @@ const addFormPengaduan = (req, res) => {
     });
 };
 
-const getFormPengaduanIndex = (_req, res) => {
-    const query = `SELECT * FROM pengaduan`;
-    db.query(query, (err, results) => {
-        if (err) {
-            return res.status(500).send({ message: "Error in getting pengaduan", error: err });
-        }
-        // Kirim data ke view
-        console.log('Results fetched:', results);
-        res.render('index', { tampil: results || [] });
-    });
-};
-
-
 const putFormPengaduan = (req, res) => {
     const { NIK } = req.params;
     const { nama, alamat, no_hp, jns_pengaduan, desk_pengaduan, status_pengaduan } = req.body;
@@ -74,5 +61,4 @@ module.exports = {
     addFormPengaduan,
     putFormPengaduan,
     deleteFormPengaduan,
-    getFormPengaduanIndex
 };

@@ -35,14 +35,7 @@ router.post('/auth/login', (req, res) => {
       
         // Route untuk logout
         router.get("/logout", (req, res) => {
-            // Hapus sesi pengguna dan arahkan ke halaman login
-            req.session.destroy((err) => {
-                if (err) {
-                    console.error("Error saat logout:", err);
-                    return res.redirect("/");
-                }
-                res.redirect("/login");
-            });
+           res.redirect("/login");
         });
         
     }
