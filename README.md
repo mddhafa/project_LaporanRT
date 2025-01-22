@@ -7,3 +7,5 @@ Link Testing (search) Andi Harun Al Rasyid_099: https://github.com/andiharun29/T
 Link Testing ( Login Admin ) Muhammad Khalif Rasyidi_062: https://github.com/MuhammadKhalifRasyidi/TestingUCP.git
 
 Link Testing (Masuk/Login Admin) Alvien Ridho Nanda Pryastika_078: https://github.com/alviennn/PAW_TESTING_LOGINADMIN_078.git
+
+Link Testing (Edit) Briliyan Luthfi Triandri: https://github.com/BriliyanLuthfiTriandri/PAW_Testing_Edit.git
