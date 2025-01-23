@@ -11,3 +11,5 @@ Link Testing (Masuk/Login Admin) Alvien Ridho Nanda Pryastika_078: https://githu
 Link Testing (Edit) Briliyan Luthfi Triandri: https://github.com/BriliyanLuthfiTriandri/PAW_Testing_Edit.git
 
 Link Testing (Add) Rama Ramdani_098: https://github.com/RamaRamdani03/TESTING_PAW_ADD.git
+
+Link Testing (Delete) Muhammad Dhafa_064 : https://github.com/mddhafa/TESTING_DELETE_PAW.git
